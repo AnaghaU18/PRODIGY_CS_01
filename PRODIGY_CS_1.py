@@ -7,53 +7,52 @@ import string
 #Creating a string of alphabets
 alphabet = string.ascii_letters
 
-#Function to encrypt a message using Caeser Cipher
-def caeser_encrypt(msg, shift):
-    #Variable initiation to carry the encrypted message
-    encrypted_msg = ""
+def caesar_cipher(message, shift):
+    final_message = ""
 
-    #For loop to access each character
-    for char in msg:
-        #Ensurign the character is an alphabet (optional)
-        if char.isalpha():
-            # new_index = (currect index of the character + shift key/value) % length of the string alphabet
-            # len(alphabet) ensures that an uppercase character is substituted by an upper case letter itself and the same for lowercase character.
+    for char in message:
+        if char.isalpha:
             new_index = (alphabet.index(char) + shift) % len(alphabet)
-            #The new character or the encrypted character as per the new index
             new_char = alphabet[new_index]
-            encrypted_msg += new_char
-    #Returning the final encrypted message
-    return encrypted_msg
+            final_message += new_char
+    return final_message
 
-#Function to decrypt an encrypted message using Caeser Cipher
-def caeser_decrypt(en_msg, shift):
-    #Variable initiation to carry the decrypted message
-    decrypted_msg = ""
+def main():
+    """
+    Prompts the user for input, performs encryption or decryption, and prints the results.
+    """
+    print("Welcome to the Caesar Cipher program!")
 
-    #For loop to access each character
-    for char in en_msg:
-        #Ensuring the character is an alphabet (optional)
-        if char.isalpha():
-            #Calculating the original index of the decrypted character
-            #The shift key/value is negative to reverse the process
-            og_index = (alphabet.index(char) + shift) % len(alphabet)
-            #Generating the original character
-            og_char = alphabet[og_index]
-            decrypted_msg += og_char
-    #Returning the decrypted message
-    return decrypted_msg
+    while True:
+        print("Options:")
+        print("a) Encrypt")
+        print("b) Decrypt")
+        print("c) Cancel")
+
+        opt = input("Enter your choice (a-c): ").lower()
+
+        if opt in ("a", "b"):
+            message = input("Enter your message: ")
+            try:
+                # Ensure valid integer input for shift value
+                shift = int(input("Enter the shift value: "))
+            except ValueError:
+                print("Invalid input. Please enter an integer.")
+                continue
+
+            if opt == "a":
+                encrypted_message = caesar_cipher(message, shift)
+                print("Encrypted message:", encrypted_message)
+            else:
+                decrypted_message = caesar_cipher(message, -shift)  # Reverse shift for decryption
+                print("Decrypted message:", decrypted_message)
+
+        elif opt == "c":
+            print("Thank you for using Caesar Cipher!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 
-#Input message & shift values for the encryption function
-message = input("Enter message to be encrypted: ")
-shift = int(input("Enter shift key/value (Ex: 3): "))
-#Printing the encrypted message
-encrypted_msg = caeser_encrypt(message, shift)
-print("The encrypted message is: ", encrypted_msg)
-
-#Input encrypted message and negative shift values for the decryption function
-en_msg = input("Enter the message to be decrypted: ")
-shift = int(input("Enter shift/key value (Ex: -3): "))
-#Printing the decrypted message
-decrypted_msg = caeser_decrypt(en_msg, shift)
-print("The decrypted message is: ", decrypted_msg)
+if __name__ == "__main__":
+    main()
